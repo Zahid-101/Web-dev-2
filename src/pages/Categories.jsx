@@ -20,7 +20,7 @@ const Categories = () => {
         <div className="space-y-8">
             <div className="text-center max-w-2xl mx-auto">
                 <h1 className="text-4xl font-bold mb-4">Eco-Friendly Initiatives</h1>
-                <p className="text-lg text-eco-charcoal">Explore our wide range of categories to start your sustainable journey.</p>
+                <p className="text-lg text-gray-600 dark:text-gray-300">Explore our wide range of categories to start your sustainable journey.</p>
             </div>
 
             <div className="flex justify-center">

@@ -31,8 +31,8 @@ const ItemDetail = () => {
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-2">
-                <h1 className="text-4xl font-bold text-harvest-green">{item.title}</h1>
-                <p className="text-xl text-eco-charcoal">{item.description}</p>
+                <h1 className="text-4xl font-bold text-harvest-green-800 dark:text-harvest-green-400">{item.title}</h1>
+                <p className="text-xl text-gray-600 dark:text-gray-300">{item.description}</p>
             </div>
 
             {item.isHoliday && (

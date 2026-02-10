@@ -1,15 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --color-harvest-green: #2D5A27;
-  --color-eco-charcoal: #1A1A1A;
-  --font-eco-font: sans-serif;
-  /* Using generic sans-serif as requested */
+  --color-harvest-green-50: #f0fdf4;
+  --color-harvest-green-100: #dcfce7;
+  --color-harvest-green-200: #bbf7d0;
+  --color-harvest-green-300: #86efac;
+  --color-harvest-green-400: #4ade80;
+  --color-harvest-green-500: #22c55e;
+  --color-harvest-green-600: #16a34a;
+  --color-harvest-green-700: #15803d;
+  --color-harvest-green-800: #166534;
+  --color-harvest-green-900: #14532d;
+  --color-harvest-green-950: #052e16;
+
+  --color-eco-charcoal-50: #f6f7f8;
+  --color-eco-charcoal-100: #eceef0;
+  --color-eco-charcoal-200: #d5d9de;
+  --color-eco-charcoal-300: #b1b9c3;
+  --color-eco-charcoal-400: #8693a2;
+  --color-eco-charcoal-500: #647285;
+  --color-eco-charcoal-600: #4e5a6a;
+  --color-eco-charcoal-700: #3f4956;
+  --color-eco-charcoal-800: #363d47;
+  --color-eco-charcoal-900: #2f343b;
+  --color-eco-charcoal-950: #1e2126;
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --animate-spin-slow: spin 3s linear infinite;
 }
+
+/* Custom dark mode variant using the class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   body {
-    @apply font-eco-font bg-gray-50 text-eco-charcoal antialiased transition-colors duration-300;
+    @apply font-body bg-gray-50 text-eco-charcoal-900 antialiased dark:bg-eco-charcoal-900 dark:text-gray-100 transition-colors duration-300;
   }
 
   h1,
@@ -18,7 +45,7 @@
   h4,
   h5,
   h6 {
-    @apply font-eco-font font-bold text-harvest-green;
+    @apply font-heading text-harvest-green-800 dark:text-harvest-green-400;
   }
 }
 
@@ -28,15 +55,15 @@
   }
 
   .btn-primary {
-    @apply bg-harvest-green text-white hover:opacity-90 hover:shadow-lg focus:ring-harvest-green;
+    @apply bg-harvest-green-600 text-white hover:bg-harvest-green-700 hover:shadow-lg focus:ring-harvest-green-500 dark:bg-harvest-green-500 dark:hover:bg-harvest-green-400;
   }
 
   .btn-secondary {
-    @apply bg-white text-harvest-green border-2 border-harvest-green hover:bg-gray-50 focus:ring-harvest-green;
+    @apply bg-white text-harvest-green-700 border-2 border-harvest-green-600 hover:bg-harvest-green-50 focus:ring-harvest-green-500 dark:bg-transparent dark:text-harvest-green-400 dark:border-harvest-green-400 dark:hover:bg-harvest-green-900/20;
   }
 
   .glass-card {
-    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl rounded-xl;
+    @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-xl rounded-xl dark:bg-eco-charcoal-800/80 dark:border-eco-charcoal-700;
   }
 
   .card-hover {
@@ -44,7 +71,7 @@
   }
 
   .input-field {
-    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-harvest-green focus:border-transparent outline-none transition-all;
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-harvest-green-500 focus:border-transparent outline-none transition-all dark:bg-eco-charcoal-800 dark:border-eco-charcoal-600 dark:text-white dark:focus:ring-harvest-green-400;
   }
 }
 
@@ -54,9 +81,9 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
+  @apply bg-gray-100 dark:bg-eco-charcoal-900;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-harvest-green rounded-full hover:opacity-80;
+  @apply bg-harvest-green-400 rounded-full hover:bg-harvest-green-500;
 }
