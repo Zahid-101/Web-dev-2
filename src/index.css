@@ -1,8 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-harvest-green-50: #f0fdf4;
+  --color-harvest-green-100: #dcfce7;
+  --color-harvest-green-200: #bbf7d0;
+  --color-harvest-green-300: #86efac;
+  --color-harvest-green-400: #4ade80;
+  --color-harvest-green-500: #22c55e;
+  --color-harvest-green-600: #16a34a;
+  --color-harvest-green-700: #15803d;
+  --color-harvest-green-800: #166534;
+  --color-harvest-green-900: #14532d;
+  --color-harvest-green-950: #052e16;
+
+  --color-eco-charcoal-50: #f6f7f8;
+  --color-eco-charcoal-100: #eceef0;
+  --color-eco-charcoal-200: #d5d9de;
+  --color-eco-charcoal-300: #b1b9c3;
+  --color-eco-charcoal-400: #8693a2;
+  --color-eco-charcoal-500: #647285;
+  --color-eco-charcoal-600: #4e5a6a;
+  --color-eco-charcoal-700: #3f4956;
+  --color-eco-charcoal-800: #363d47;
+  --color-eco-charcoal-900: #2f343b;
+  --color-eco-charcoal-950: #1e2126;
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --animate-spin-slow: spin 3s linear infinite;
+}
+
+/* Custom dark mode variant using the class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
   body {
