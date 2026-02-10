@@ -22,7 +22,7 @@ const CategoryDetail = () => {
                 <Button to="/categories" variant="secondary">Back to Categories</Button>
             </div>
 
-            <p className="text-lg text-gray-600 dark:text-gray-300">Here you will find all upcoming workshops and items related to <span className="font-semibold text-harvest-green-600">{slug}</span>.</p>
+            <p className="text-lg text-eco-charcoal">Here you will find all upcoming workshops and items related to <span className="font-semibold text-harvest-green">{slug}</span>.</p>
 
             {categoryItems.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

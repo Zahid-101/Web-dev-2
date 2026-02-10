@@ -5,7 +5,7 @@ import ScrollToTop from './ScrollToTop';
 
 const Layout = () => {
     return (
-        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-eco-charcoal-900 transition-colors duration-300">
+        <div className="min-h-screen flex flex-col bg-gray-50 transition-colors duration-300">
             <ScrollToTop />
             <Header />
             <main className="flex-grow container mx-auto px-4 py-8">

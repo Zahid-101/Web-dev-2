@@ -31,7 +31,7 @@ const Booking = () => {
 
     return (
         <div className="max-w-2xl mx-auto glass-card p-8">
-            <h1 className="text-3xl font-bold mb-8 text-center text-harvest-green-900 dark:text-harvest-green-100">
+            <h1 className="text-3xl font-bold mb-8 text-center text-harvest-green">
                 Book Your Spot
             </h1>
 
@@ -45,8 +45,8 @@ const Booking = () => {
                         type="text"
                         {...formik.getFieldProps('name')}
                         className={`input-field ${formik.touched.name && formik.errors.name
-                                ? 'border-red-500 ring-red-500 focus:ring-red-500'
-                                : ''
+                            ? 'border-red-500 ring-red-500 focus:ring-red-500'
+                            : ''
                             }`}
                         aria-invalid={formik.touched.name && formik.errors.name ? 'true' : 'false'}
                         aria-describedby="name-error"
@@ -67,8 +67,8 @@ const Booking = () => {
                         type="email"
                         {...formik.getFieldProps('email')}
                         className={`input-field ${formik.touched.email && formik.errors.email
-                                ? 'border-red-500 ring-red-500 focus:ring-red-500'
-                                : ''
+                            ? 'border-red-500 ring-red-500 focus:ring-red-500'
+                            : ''
                             }`}
                         aria-invalid={formik.touched.email && formik.errors.email ? 'true' : 'false'}
                         aria-describedby="email-error"
@@ -88,8 +88,8 @@ const Booking = () => {
                         id="event"
                         {...formik.getFieldProps('event')}
                         className={`input-field ${formik.touched.event && formik.errors.event
-                                ? 'border-red-500 ring-red-500 focus:ring-red-500'
-                                : ''
+                            ? 'border-red-500 ring-red-500 focus:ring-red-500'
+                            : ''
                             }`}
                         aria-invalid={formik.touched.event && formik.errors.event ? 'true' : 'false'}
                         aria-describedby="event-error"
