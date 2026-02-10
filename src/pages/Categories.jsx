@@ -1,7 +1,7 @@
 import { useContext, useState, useMemo } from 'react';
 import { DataContext } from '../context/DataContext';
 import CategoryCard from '../components/CategoryCard';
-import LoadingSpinner from '../components/LoadingSpinner';
+import SkeletonCard from '../components/SkeletonCard';
 
 const Categories = () => {
     const { categories, loading, error } = useContext(DataContext);
@@ -14,8 +14,7 @@ const Categories = () => {
         );
     }, [categories, searchTerm]);
 
-    if (loading) return <LoadingSpinner />;
-    if (error) return <div className="error-message">Error: {error}</div>;
+    if (error) return <div className="text-red-500 text-center p-8">Error: {error}</div>;
 
     return (
         <div className="space-y-8">
@@ -31,16 +30,26 @@ const Categories = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="input-field max-w-md"
+                    aria-label="Search categories"
                 />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredCategories.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" aria-live="polite">
+                {loading ? (
+                    // Show 6 skeleton cards while loading
+                    Array.from({ length: 6 }).map((_, index) => (
+                        <SkeletonCard key={index} />
+                    ))
+                ) : filteredCategories.length > 0 ? (
                     filteredCategories.map((category) => (
                         <CategoryCard key={category.id} category={category} />
                     ))
                 ) : (
-                    <p className="text-center text-gray-500 col-span-full">No categories found matching "{searchTerm}"</p>
+                    <div className="col-span-full text-center py-12">
+                        <div className="text-6xl mb-4">🔍</div>
+                        <h3 className="text-xl font-bold text-gray-700 dark:text-gray-300 mb-2">No categories found</h3>
+                        <p className="text-gray-500">We couldn't find any categories matching "{searchTerm}".</p>
+                    </div>
                 )}
             </div>
         </div>

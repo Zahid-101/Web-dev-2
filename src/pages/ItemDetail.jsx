@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 import Button from '../components/Button';
-import LoadingSpinner from '../components/LoadingSpinner';
+import SkeletonCard from '../components/SkeletonCard';
 
 const ItemDetail = () => {
     const { id } = useParams();
@@ -12,8 +12,17 @@ const ItemDetail = () => {
     // Find item from context
     const item = items.find(i => i.id === id);
 
-    if (loading) return <LoadingSpinner />;
-    if (error) return <div className="error-message">Error: {error}</div>;
+    if (loading) {
+        return (
+            <div className="max-w-4xl mx-auto space-y-8">
+                <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded w-1/2 animate-pulse"></div>
+                <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
+                <SkeletonCard />
+            </div>
+        );
+    }
+
+    if (error) return <div className="text-red-500 text-center p-8">Error: {error}</div>;
 
     if (!item) {
         return <div className="container mx-auto px-4 py-8">Item not found</div>;

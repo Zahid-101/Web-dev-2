@@ -1,16 +1,70 @@
-# React + Vite
+# Urban Harvest Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Urban Harvest Hub is a modern, responsive Single Page Application (SPA) designed to connect urban communities with eco-friendly initiatives, gardening workshops, and sustainable living resources.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **Responsive Design**: Built with a "mobile-first" approach using Tailwind CSS.
+*   **Centralized Data**: Powered by React Context API with dynamic integrations (public holidays).
+*   **Performance**: Lazy loading for routes and optimized assets.
+*   **Accessibility**: WCAG 2.1 compliant with semantic HTML, focus management, and ARIA attributes.
+*   **Robust Forms**: Formik + Yup validation for secure and user-friendly data entry.
+*   **Dark Mode**: System-aware theming with a toggle switch.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+*   **Core**: React 19, Vite
+*   **Routing**: React Router DOM 7
+*   **Styling**: Tailwind CSS v4
+*   **Validation**: Formik, Yup
+*   **Icons/Fonts**: Google Fonts (Outfit, Inter)
 
-## Expanding the ESLint configuration
+## 🏗️ Architecture
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Directory Structure
+```
+src/
+├── components/     # Reusable UI components (Button, Cards, Layout)
+├── context/        # Global state (Data, Theme)
+├── data/           # Mock data and static content
+├── pages/          # Route views (Home, Categories, Booking)
+└── main.jsx        # Application entry point
+```
+
+### State Management
+We use **React Context** (`DataContext`) to manage:
+1.  **Domain Data**: Items, categories, and highlights.
+2.  **UI State**: Loading statuses, error messages, and theming.
+3.  **Integrations**: Merging local data with external API data (Public Holidays) at the context level ensures a single source of truth for the entire app.
+
+## 📦 Setup & Running
+
+1.  **Install Dependencies**
+    ```bash
+    npm install
+    ```
+
+2.  **Start Development Server**
+    ```bash
+    npm run dev
+    ```
+
+3.  **Build for Production**
+    ```bash
+    npm run build
+    ```
+
+## 🎨 Design System
+
+The application uses a custom Tailwind theme:
+*   **Primary Color**: `harvest-green` (50-950)
+*   **Secondary Color**: `eco-charcoal` (50-950)
+*   **Typography**: `Outfit` (Headings), `Inter` (Body)
+*   **Components**: Custom `.btn`, `.glass-card` utilities for consistency.
+
+## ✅ Accessibility
+
+*   All forms include explicit labels and error messaging strings.
+*   Interactive elements have visible `:focus-visible` rings.
+*   Loading states use `aria-busy` patterns implicitly via separate Skeleton components.
+*   `aria-live` regions notify screen readers of filter results.
