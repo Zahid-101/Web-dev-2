@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import { DataProvider } from './context/DataContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
+import OfflineBanner from './components/OfflineBanner';
+import InstallBanner from './components/InstallBanner';
 
 // Lazy loading components
 const Home = React.lazy(() => import('./pages/Home'));
@@ -18,6 +20,8 @@ function App() {
     <DataProvider>
       <ErrorBoundary>
         <BrowserRouter>
+          <OfflineBanner />
+          <InstallBanner />
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
               <Route path="/" element={<Layout />}>
