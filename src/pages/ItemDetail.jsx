@@ -1,4 +1,5 @@
-import { useContext, useParams, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 import Button from '../components/Button';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -15,31 +16,39 @@ const ItemDetail = () => {
     if (error) return <div className="error-message">Error: {error}</div>;
 
     if (!item) {
-        return <div className="container">Item not found</div>;
+        return <div className="container mx-auto px-4 py-8">Item not found</div>;
     }
 
     return (
-        <div className="item-detail-container">
-            <h1>{item.title}</h1>
-            <p className="subtitle" style={{ color: '#666', fontSize: '1.2rem' }}>{item.description}</p>
+        <div className="max-w-4xl mx-auto space-y-8">
+            <div className="space-y-2">
+                <h1 className="text-4xl font-bold text-harvest-green-800 dark:text-harvest-green-400">{item.title}</h1>
+                <p className="text-xl text-gray-600 dark:text-gray-300">{item.description}</p>
+            </div>
 
             {item.isHoliday && (
-                <div className="holiday-banner" style={{ background: '#ffeb3b', padding: '10px', borderRadius: '4px', margin: '15px 0', color: '#333' }}>
-                    <strong>Note:</strong> This event falls on a public holiday ({item.holidayName}). Please check for special opening hours.
+                <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-r shadow-md" role="alert">
+                    <p className="font-bold">Public Holiday Alert</p>
+                    <p>This event falls on <strong>{item.holidayName}</strong>. Please check for special opening hours.</p>
                 </div>
             )}
 
-            <div className="item-info" style={{ marginTop: '2rem', padding: '20px', backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-                <h3>Date & Time</h3>
-                <p>{item.date}</p>
-
-                <h3 style={{ marginTop: '1rem' }}>Location</h3>
-                <p>{item.location}</p>
+            <div className="glass-card p-8 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Date & Time</h3>
+                        <p className="text-xl font-medium">{item.date}</p>
+                    </div>
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Location</h3>
+                        <p className="text-xl font-medium">{item.location}</p>
+                    </div>
+                </div>
             </div>
 
-            <div className="actions" style={{ marginTop: '2rem', display: 'flex', gap: '10px' }}>
-                <Button onClick={() => navigate('/booking')}>Book Now</Button>
-                <Button onClick={() => navigate(-1)} variant="secondary">Go Back</Button>
+            <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <Button onClick={() => navigate('/booking')} className="flex-1 md:flex-none md:w-48">Book Now</Button>
+                <Button onClick={() => navigate(-1)} variant="secondary" className="flex-1 md:flex-none md:w-32">Go Back</Button>
             </div>
         </div>
     );

@@ -1,20 +1,7 @@
 const LoadingSpinner = () => {
     return (
-        <div className="loading-spinner-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
-            <div className="spinner" style={{
-                border: '4px solid #f3f3f3',
-                borderTop: '4px solid var(--primary-color)',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                animation: 'spin 1s linear infinite'
-            }}></div>
-            <style>{`
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-            `}</style>
+        <div className="flex justify-center items-center h-64">
+            <div className="w-12 h-12 border-4 border-gray-200 border-t-harvest-green-600 rounded-full animate-spin"></div>
         </div>
     );
 };

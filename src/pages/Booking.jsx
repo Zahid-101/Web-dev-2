@@ -18,11 +18,11 @@ const Booking = () => {
     };
 
     return (
-        <div className="booking-container">
-            <h1>Book Your Spot</h1>
-            <form onSubmit={handleSubmit} className="booking-form">
-                <div className="form-group">
-                    <label htmlFor="name">Full Name</label>
+        <div className="max-w-2xl mx-auto glass-card p-8">
+            <h1 className="text-3xl font-bold mb-8 text-center">Book Your Spot</h1>
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
                     <input
                         type="text"
                         id="name"
@@ -30,11 +30,12 @@ const Booking = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
+                        className="input-field"
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="email">Email Address</label>
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
                     <input
                         type="email"
                         id="email"
@@ -42,17 +43,19 @@ const Booking = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        className="input-field"
                     />
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="event">Event / Workshop</label>
+                <div>
+                    <label htmlFor="event" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Event / Workshop</label>
                     <select
                         id="event"
                         name="event"
                         value={formData.event}
                         onChange={handleChange}
                         required
+                        className="input-field"
                     >
                         <option value="">Select an option</option>
                         <option value="gardening">Urban Gardening 101</option>
@@ -60,7 +63,7 @@ const Booking = () => {
                     </select>
                 </div>
 
-                <button type="submit" className="btn btn-primary">Confirm Booking</button>
+                <Button type="submit" className="w-full">Confirm Booking</Button>
             </form>
         </div>
     );

@@ -16,22 +16,24 @@ const CategoryDetail = () => {
     if (error) return <div className="error-message">Error: {error}</div>;
 
     return (
-        <div className="category-detail-container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h1 style={{ textTransform: 'capitalize' }}>Category: {slug}</h1>
+        <div className="space-y-8">
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 border-b border-gray-200 dark:border-gray-700 pb-6">
+                <h1 className="text-3xl font-bold capitalize">Category: {slug}</h1>
                 <Button to="/categories" variant="secondary">Back to Categories</Button>
             </div>
 
-            <p>Here you will find all upcoming workshops and items related to {slug}.</p>
+            <p className="text-lg text-gray-600 dark:text-gray-300">Here you will find all upcoming workshops and items related to <span className="font-semibold text-harvest-green-600">{slug}</span>.</p>
 
             {categoryItems.length > 0 ? (
-                <div className="items-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px', marginTop: '20px' }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {categoryItems.map(item => (
                         <ItemCard key={item.id} item={item} />
                     ))}
                 </div>
             ) : (
-                <p>No items found for this category.</p>
+                <div className="text-center py-12 bg-gray-50 dark:bg-eco-charcoal-800 rounded-lg">
+                    <p className="text-xl text-gray-500">No items found for this category.</p>
+                </div>
             )}
         </div>
     );

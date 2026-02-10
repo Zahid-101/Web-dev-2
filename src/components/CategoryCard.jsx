@@ -3,10 +3,10 @@ import Button from './Button';
 
 const CategoryCard = ({ category }) => {
     return (
-        <div className="category-card">
-            <h2>{category.name}</h2>
-            <p>{category.description}</p>
-            <Button to={`/categories/${category.slug}`}>View Details</Button>
+        <div className="glass-card p-6 flex flex-col h-full card-hover">
+            <h2 className="text-2xl font-bold mb-3">{category.name}</h2>
+            <p className="text-eco-charcoal-600 dark:text-gray-300 mb-6 flex-grow">{category.description}</p>
+            <Button to={`/categories/${category.slug}`} className="w-full">View Details</Button>
         </div>
     );
 };

@@ -9,6 +9,20 @@ export const DataProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+
+    useEffect(() => {
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = () => {
+        setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,8 +79,10 @@ export const DataProvider = ({ children }) => {
         categories,
         highlights,
         loading,
-        error
-    }), [items, categories, loading, error]);
+        error,
+        theme,
+        toggleTheme
+    }), [items, categories, loading, error, theme]);
 
     return (
         <DataContext.Provider value={value}>
