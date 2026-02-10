@@ -1,16 +1,24 @@
+import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { items } from '../data/mockData';
+import { DataContext } from '../context/DataContext';
 import ItemCard from '../components/ItemCard';
 import Button from '../components/Button';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const CategoryDetail = () => {
     const { slug } = useParams();
+    const { items, loading, error } = useContext(DataContext);
+
+    // Filter items based on the slug from the URL
     const categoryItems = items.filter(item => item.categorySlug === slug);
+
+    if (loading) return <LoadingSpinner />;
+    if (error) return <div className="error-message">Error: {error}</div>;
 
     return (
         <div className="category-detail-container">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h1>Category: {slug}</h1>
+                <h1 style={{ textTransform: 'capitalize' }}>Category: {slug}</h1>
                 <Button to="/categories" variant="secondary">Back to Categories</Button>
             </div>
 
