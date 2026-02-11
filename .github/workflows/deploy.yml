@@ -18,21 +18,30 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Navigate to project root or create it
-            mkdir -p ~/urban-harvest-hub
-            cd ~/urban-harvest-hub
+            # 1. Move to home directory
+            cd ~
 
-            # Handle first-time clone vs subsequent pulls
-            if [ ! -d ".git" ]; then
-              git clone https://github.com/${{ github.repository }}.git .
+            # 2. Clone repo if missing, or update if exists
+            if [ ! -d "urban-harvest-hub" ]; then
+              git clone https://github.com/${{ github.repository }}.git urban-harvest-hub
             else
-              git pull origin main
+              cd urban-harvest-hub
+              git fetch --all
+              git reset --hard origin/main
+              cd ..
             fi
 
-            # Setup Backend
-            cd backend
+            # 3. Enter the backend directory
+            # NOTE: If your server.js is in the root, change this to 'cd urban-harvest-hub'
+            cd ~/urban-harvest-hub/backend
+
+            # 4. Install production dependencies
             npm install --production
 
-            # Start/Restart the application with PM2
-            # We use --update-env to ensure new .env changes are picked up
-            pm2 restart harvest-api --update-env || pm2 start server.js --name "harvest-api"
+            # 5. Restart or Start the process with PM2
+            # We use --update-env to refresh any .env changes
+            pm2 delete harvest-api || true
+            pm2 start server.js --name "harvest-api" --update-env
+
+            # 6. Ensure PM2 starts on system reboot
+            pm2 save
