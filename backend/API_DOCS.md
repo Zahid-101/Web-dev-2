@@ -30,16 +30,7 @@ Base URL: `http://localhost:5000/api`
     }
     ```
 
-### Login User
--   **URL**: `/auth/login`
--   **Method**: `POST`
--   **Body**:
-    ```json
-    {
-        "email": "john@example.com",
-        "password": "password123"
-    }
-    ```
+###
 -   **Success Response**: `200 OK` (Returns same structure as register)
 
 ## Items
