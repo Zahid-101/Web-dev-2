@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
 import Button from '../components/Button';
 import SkeletonCard from '../components/SkeletonCard';
+import NotificationButton from '../components/NotificationButton';
 
 const ItemDetail = () => {
     const { id } = useParams();
@@ -10,7 +11,9 @@ const ItemDetail = () => {
     const { items, loading, error } = useContext(DataContext);
 
     // Find item from context
-    const item = items.find(i => i.id === id);
+    // The ID from URL is a string, but the items from DB have number IDs. 
+    // We should parse or type check.
+    const item = items.find(i => i.id === parseInt(id) || i.id === id);
 
     if (loading) {
         return (
@@ -55,9 +58,10 @@ const ItemDetail = () => {
                 </div>
             </div>
 
-            <div className="flex gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                <Button onClick={() => navigate('/booking')} className="flex-1 md:flex-none md:w-48">Book Now</Button>
-                <Button onClick={() => navigate(-1)} variant="secondary" className="flex-1 md:flex-none md:w-32">Go Back</Button>
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <Button onClick={() => navigate('/booking')} className="flex-1">Book Now</Button>
+                <NotificationButton itemName={item.title} startTime={item.date} />
+                <Button onClick={() => navigate(-1)} variant="secondary" className="flex-1">Go Back</Button>
             </div>
         </div>
     );
