@@ -18,30 +18,21 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # 1. Move to home directory
             cd ~
+            # 1. Force a clean clone to ensure NO missing files
+            rm -rf urban-harvest-hub
+            git clone https://github.com/Zahid-101/Web-dev-2.git urban-harvest-hub
+            
+            cd urban-harvest-hub
 
-            # 2. Clone repo if missing, or update if exists
-            if [ ! -d "urban-harvest-hub" ]; then
-              git clone https://github.com/${{ github.repository }}.git urban-harvest-hub
-            else
-              cd urban-harvest-hub
-              git fetch --all
-              git reset --hard origin/main
-              cd ..
+            # 2. Smart Directory Detection
+            if [ -d "backend" ]; then
+              echo "Moving into backend folder..."
+              cd backend
             fi
 
-            # 3. Enter the backend directory
-            # NOTE: If your server.js is in the root, change this to 'cd urban-harvest-hub'
-            cd ~/urban-harvest-hub/backend
-
-            # 4. Install production dependencies
+            # 3. Install and Launch
             npm install --production
-
-            # 5. Restart or Start the process with PM2
-            # We use --update-env to refresh any .env changes
             pm2 delete harvest-api || true
-            pm2 start server.js --name "harvest-api" --update-env
-
-            # 6. Ensure PM2 starts on system reboot
+            pm2 start server.js --name "harvest-api"
             pm2 save
