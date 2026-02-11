@@ -1,4 +1,4 @@
-name: Deploy to AWS EC2
+name: AWS Production Deployment
 
 on:
   push:
@@ -8,18 +8,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 via SSH
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/urban-harvest-hub/backend  # Adjust this to your folder name
-            git pull origin main
-            npm install
-            # This restarts the app using PM2 to ensure zero downtime
-            pm2 restart all || pm2 start server.js --name "harvest-hub-api"
+            # Navigate to project root or create it
+            mkdir -p ~/urban-harvest-hub
+            cd ~/urban-harvest-hub
+
+            # Handle first-time clone vs subsequent pulls
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/${{ github.repository }}.git .
+            else
+              git pull origin main
+            fi
+
+            # Setup Backend
+            cd backend
+            npm install --production
+
+            # Start/Restart the application with PM2
+            # We use --update-env to ensure new .env changes are picked up
+            pm2 restart harvest-api --update-env || pm2 start server.js --name "harvest-api"
