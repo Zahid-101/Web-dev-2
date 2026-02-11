@@ -1,70 +1,173 @@
 # Urban Harvest Hub
 
-Urban Harvest Hub is a modern, responsive Single Page Application (SPA) designed to connect urban communities with eco-friendly initiatives, gardening workshops, and sustainable living resources.
+Hosted on AWS EC2
+http://54.255.154.202/
 
-## 🚀 Key Features
+## Tech Stack
 
-*   **Responsive Design**: Built with a "mobile-first" approach using Tailwind CSS.
-*   **Centralized Data**: Powered by React Context API with dynamic integrations (public holidays).
-*   **Performance**: Lazy loading for routes and optimized assets.
-*   **Accessibility**: WCAG 2.1 compliant with semantic HTML, focus management, and ARIA attributes.
-*   **Robust Forms**: Formik + Yup validation for secure and user-friendly data entry.
-*   **Dark Mode**: System-aware theming with a toggle switch.
+**Frontend:**
+- React.js (Vite)
+- Tailwind CSS (v4)
+- React Router DOM
+- Stripe Elements (React Stripe.js)
 
-## 🛠️ Tech Stack
+**Backend:**
+- Node.js
+- Express.js
+- MySQL (mysql2)
 
-*   **Core**: React 19, Vite
-*   **Routing**: React Router DOM 7
-*   **Styling**: Tailwind CSS v4
-*   **Validation**: Formik, Yup
-*   **Icons/Fonts**: Google Fonts (Outfit, Inter)
+**Database:**
+- MySQL
 
-## 🏗️ Architecture
+**DevOps & Tools:**
+- Git & GitHub
+- PM2 (Process Manager)
+- AWS EC2 (Deployment target)
 
-### Directory Structure
+## Prerequisites
+
+Before running this project, ensure you have the following installed:
+- Node.js (v16+)
+- MySQL Server (running locally or remotely)
+- Git
+- npm (Node Package Manager)
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Zahid-101/Web-dev-2.git
+   ```
+
+2. Navigate into the project directory:
+   ```bash
+   cd Web-dev-2
+   ```
+
+## Setup and Dependencies
+
+This project consists of a frontend (root) and a backend (backend/). You need to install dependencies for both.
+
+### Frontend Setup
+
+1. From the root directory, install frontend dependencies:
+   ```bash
+   npm install
+   ```
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Install backend dependencies:
+   ```bash
+   npm install
+   ```
+
+## Configuration (Environment Variables)
+
+You must configure environment variables for both the frontend and backend.
+
+### Backend Configuration
+
+Create a file named `.env` in the `backend/` directory with the following content:
+
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASS=your_mysql_password
+DB_NAME=urban_harvest_hub
+JWT_SECRET=your_jwt_secret_key
+STRIPE_SECRET_KEY=your_stripe_secret_key
+FRONTEND_URL=http://localhost:5173
+NODE_ENV=development
 ```
-src/
-├── components/     # Reusable UI components (Button, Cards, Layout)
-├── context/        # Global state (Data, Theme)
-├── data/           # Mock data and static content
-├── pages/          # Route views (Home, Categories, Booking)
-└── main.jsx        # Application entry point
+
+**Note:** Ensure your MySQL service is running and you have created the database `urban_harvest_hub`. You can use the `schema.sql` file in `backend/` to set up the tables.
+
+### Frontend Configuration
+
+Create a file named `.env` in the root directory with the following content:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
 ```
 
-### State Management
-We use **React Context** (`DataContext`) to manage:
-1.  **Domain Data**: Items, categories, and highlights.
-2.  **UI State**: Loading statuses, error messages, and theming.
-3.  **Integrations**: Merging local data with external API data (Public Holidays) at the context level ensures a single source of truth for the entire app.
+## Running the Application
 
-## 📦 Setup & Running
+### 1. Start the Backend Server
 
-1.  **Install Dependencies**
-    ```bash
-    npm install
-    ```
+From the `backend/` directory:
+```bash
+node server.js
+```
+The server will start on port 5000 (or the port specified in your .env).
 
-2.  **Start Development Server**
-    ```bash
-    npm run dev
-    ```
+### 2. Start the Frontend Application
 
-3.  **Build for Production**
-    ```bash
-    npm run build
-    ```
+From the root directory:
+```bash
+npm run dev
+```
+The application will be accessible at `http://localhost:5173`.
 
-## 🎨 Design System
+## API Routes for Testing
 
-The application uses a custom Tailwind theme:
-*   **Primary Color**: `harvest-green` (50-950)
-*   **Secondary Color**: `eco-charcoal` (50-950)
-*   **Typography**: `Outfit` (Headings), `Inter` (Body)
-*   **Components**: Custom `.btn`, `.glass-card` utilities for consistency.
+You can use Postman or curl to test the following checkpoints:
 
-## ✅ Accessibility
+**Authentication:**
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive a JWT
 
-*   All forms include explicit labels and error messaging strings.
-*   Interactive elements have visible `:focus-visible` rings.
-*   Loading states use `aria-busy` patterns implicitly via separate Skeleton components.
-*   `aria-live` regions notify screen readers of filter results.
+**Items (Public):**
+- `GET /api/items` - Fetch, filter, and search items
+- `GET /api/items/:id` - Get item details
+
+**Items (Protected - Admin Only):**
+- `POST /api/items` - Create a new item (Requires Bearer Token)
+- `DELETE /api/items/:id` - Delete an item (Requires Bearer Token)
+
+**Bookings (Private):**
+- `POST /api/bookings` - Create a booking (Requires Bearer Token)
+
+**Payments:**
+- `POST /api/payments/create-payment-intent` - Initiate Stripe payment
+
+## Project Notes
+
+- **MySQL Service:** This application strictly requires a running MySQL service. If the database connection fails, check your `DB_HOST`, `DB_USER`, and `DB_PASS` in `backend/.env`.
+- **Stripe Integration:** The payment system runs in test mode. Use Stripe test card numbers (e.g., 4242 4242 4242 4242) to simulate transactions.
+- **PWA Support:** This app is a Progressive Web App. In production or when built, it can be installed on supported devices.
+
+An API_DOCS.md file is also provided in the root directory if need be for greater guidance on testing the API.
+
+## Project Structure
+
+```
+Web-dev-2/
+├── backend/                # Node.js/Express Backend
+│   ├── config/             # Database configuration
+│   ├── controllers/        # Request handlers
+│   ├── middleware/         # Auth and Error handling
+│   ├── models/             # Database models
+│   ├── routes/             # API route definitions
+│   ├── server.js           # Entry point
+│   ├── schema.sql          # Database schema
+│   └── .env                # Backend environment variables
+├── public/                 # Static assets (PWA icons)
+├── src/                    # React Frontend
+│   ├── components/         # Reusable UI components
+│   ├── context/            # Global state (Theme, Data)
+│   ├── pages/              # Page components
+│   ├── main.jsx            # Frontend entry point
+│   └── App.jsx             # Main application component
+├── .env                    # Frontend environment variables
+├── index.html              # HTML template
+├── vite.config.js          # Vite configuration
+└── package.json            # Project dependencies
+```
