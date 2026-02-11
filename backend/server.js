@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const itemRoutes = require('./routes/itemRoutes');
 const bookingRoutes = require('./routes/bookingRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRoutes);
 app.use('/api/items', itemRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/payments', paymentRoutes);

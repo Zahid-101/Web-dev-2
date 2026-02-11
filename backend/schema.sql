@@ -14,6 +14,15 @@ CREATE TABLE IF NOT EXISTS items (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'admin') DEFAULT 'user',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS bookings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL, -- Assuming a user system exists or will exist
@@ -31,6 +40,11 @@ INSERT INTO items (title, description, category_slug, date, location, price) VAL
 ('Rooftop Hydroponics', 'Advanced techniques for soil-less farming on rooftops.', 'technology', '2026-11-05 09:00:00', 'SkyLine Towers', 50.00),
 ('Community Clean-Up', 'Join us for a neighborhood clean-up event.', 'community', '2026-11-12 08:00:00', 'Main Street Square', 0.00),
 ('Seed Swapping Event', 'Bring your extra seeds and trade with neighbors.', 'gardening', '2026-11-15 11:00:00', 'The Green Barn', 5.00);
+
+-- Dummy Data for Users (Password: password123 hashed)
+-- Note: In a real scenario, use the registration endpoint to create users with properly hashed passwords.
+-- This insert is for schema completeness example.
+-- INSERT INTO users (name, email, password, role) VALUES ('Admin User', 'admin@example.com', '$2a$10$X7...', 'admin'); 
 
 -- Dummy Data for Bookings
 INSERT INTO bookings (user_id, item_id, status, payment_intent_id) VALUES
